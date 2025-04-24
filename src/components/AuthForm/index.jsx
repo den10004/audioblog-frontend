@@ -1,17 +1,23 @@
 "use client";
-
+/*
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn, signUp } from "@/app/(auth)/lib/actions/auth";
+*/
 
-export const AuthForm = ({ type }: any) => {
+import { signIn } from "next-auth/react";
+//import { useRouter } from "next/router";
+import { useState } from "react";
+
+export const AuthForm = (type) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
+  // const router = useRouter();
 
+  /*
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     setError("");
@@ -28,6 +34,30 @@ export const AuthForm = ({ type }: any) => {
       setError(err instanceof Error ? err.message : "Произошла ошибка");
     } finally {
       setIsLoading(false);
+    }
+  };
+*/
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const username = formData.get("username");
+    const password = formData.get("password");
+
+    try {
+      const result = await signIn("credentials", {
+        redirect: false,
+        username,
+        password,
+      });
+
+      if (result.error) {
+        console.error(result.error);
+      } else {
+        alert("ok");
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 

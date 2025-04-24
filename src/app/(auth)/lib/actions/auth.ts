@@ -3,7 +3,10 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-export async function signIn(data: { email: string; password: string }) {
+export async function signIn(
+  p0: string,
+  data: { email: string; password: string }
+) {
   const response = await fetch(`${process.env.NEXT_PUBLIC_URL}auth/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
