@@ -1,10 +1,10 @@
 import { Metadata } from "next";
 import Link from "next/link";
-
+/*
 export async function generateMetadata({ params }) {
   const { slug } = await params;
-  const blog = await fetch(`${process.env.URL}blog/${slug}`).then((res) =>
-    res.json()
+  const blog = await fetch(`${process.env.NEXT_PUBLIC_URL}blog/${slug}`).then(
+    (res) => res.json()
   );
 
   return {
@@ -15,10 +15,10 @@ export async function generateMetadata({ params }) {
     },
   };
 }
-
+*/
 export default async function BlogPage({ params }) {
   const { slug } = await params;
-  const blog = await fetch(`${process.env.URL}blog/${slug}`, {
+  const blog = await fetch(`${process.env.NEXT_PUBLIC_URL}blog/${slug}`, {
     next: { revalidate: 3600 },
   }).then((res) => res.json());
 
