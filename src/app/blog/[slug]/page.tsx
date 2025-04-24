@@ -16,7 +16,7 @@ export async function generateMetadata({ params }) {
   };
 }
 */
-export default async function BlogPage({ params }) {
+export default async function BlogPage({ params }: any) {
   const { slug } = await params;
   const blog = await fetch(`${process.env.NEXT_PUBLIC_URL}blog/${slug}`, {
     next: { revalidate: 3600 },

@@ -1,13 +1,8 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import styles from "./page.module.css";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+import Header from "./../components/Header";
+import Footer from "./../components/Footer";
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
@@ -19,7 +14,7 @@ export const metadata = {
   description: "Сайт",
 };
 
-export default function RootLayout({ children }) {
+export default function RootLayout({ children }: any) {
   return (
     <html lang="ru">
       <body className={styles.page}>

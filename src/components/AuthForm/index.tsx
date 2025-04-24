@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn, signUp } from "@/app/(auth)/lib/actions/auth";
 
-export const AuthForm = ({ type }) => {
+export const AuthForm = ({ type }: any) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -12,7 +12,7 @@ export const AuthForm = ({ type }) => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     setError("");
     setIsLoading(true);

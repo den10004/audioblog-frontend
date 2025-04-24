@@ -3,7 +3,7 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-export async function signIn(data) {
+export async function signIn(data: { email: string; password: string }) {
   const response = await fetch(`${process.env.NEXT_PUBLIC_URL}auth/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -14,11 +14,15 @@ export async function signIn(data) {
     throw new Error("Неверный email или пароль");
   }
   const { token } = await response.json();
-  cookies().set("session", token, { secure: true });
+  (await cookies()).set("session", token, { secure: true });
   redirect(`/user`);
 }
 
-export async function signUp(data) {
+export async function signUp(data: {
+  email: string;
+  password: string;
+  name: string;
+}) {
   const response = await fetch(`${process.env.NEXT_PUBLIC_URL}auth/register`, {
     method: "POST",
     headers: {
@@ -33,10 +37,10 @@ export async function signUp(data) {
   }
 
   const { token } = await response.json();
-  cookies().set("session", token, { secure: true });
+  (await cookies()).set("session", token, { secure: true });
 }
 
 export async function signOut() {
-  cookies().delete("session");
+  (await cookies()).delete("session");
   redirect("/login");
 }
