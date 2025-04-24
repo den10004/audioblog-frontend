@@ -7,6 +7,7 @@ import { signIn, signUp } from "@/app/(auth)/lib/actions/auth";
 export const AuthForm = ({ type }: any) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordr, setPasswordr] = useState("");
   const [name, setName] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -31,6 +32,7 @@ export const AuthForm = ({ type }: any) => {
     }
   };
 
+  console.log(type);
   return (
     <form onSubmit={handleSubmit}>
       <h2>{type === "login" ? "Вход" : "Регистрация"}</h2>
@@ -78,6 +80,21 @@ export const AuthForm = ({ type }: any) => {
         />
       </div>
 
+      {type === "register" && (
+        <div>
+          <label htmlFor="password-r">Повторить пароль</label>
+          <input
+            id="password-r"
+            name="password-r"
+            type="password"
+            value={passwordr}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            disabled={isLoading}
+          />
+        </div>
+      )}
+
       <button type="submit" disabled={isLoading}>
         {isLoading ? (
           <span>
@@ -98,12 +115,11 @@ export const AuthForm = ({ type }: any) => {
                 d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
               ></path>
             </svg>
-            {type === "login" ? "Вход..." : ""}
           </span>
         ) : type === "login" ? (
           "Войти"
         ) : (
-          ""
+          "Зарегистрироваться"
         )}
       </button>
     </form>

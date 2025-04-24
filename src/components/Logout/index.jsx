@@ -1,11 +1,13 @@
-"use client";
 import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
 
 export default function Logout() {
+  const cookieStore = cookies();
+
   const deleteCookie = () => {
-    document.cookie =
-      "session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    redirect(`/`);
+    cookieStore.getAll().forEach((cookie) => {
+      cookieStore.delete(cookie.name);
+    });
   };
 
   return (

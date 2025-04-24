@@ -14,6 +14,7 @@ export async function signIn(data: { email: string; password: string }) {
     throw new Error("Неверный email или пароль");
   }
   const { token } = await response.json();
+
   (await cookies()).set("session", token, { secure: true });
   redirect(`/user`);
 }
