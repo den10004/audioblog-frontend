@@ -8,6 +8,7 @@ export default function Logout() {
     cookieStore.getAll().forEach((cookie) => {
       cookieStore.delete(cookie.name);
     });
+    redirect(`/`);
   };
 
   return (
