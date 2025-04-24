@@ -32,14 +32,13 @@ export const AuthForm = ({ type }: any) => {
     }
   };
 
-  console.log(type);
   return (
     <form onSubmit={handleSubmit}>
       <h2>{type === "login" ? "Вход" : "Регистрация"}</h2>
 
       {error && <div>{error}</div>}
 
-      {type === "register" && (
+      {type === "regist" && (
         <div>
           <label htmlFor="name">Имя</label>
           <input
@@ -80,7 +79,7 @@ export const AuthForm = ({ type }: any) => {
         />
       </div>
 
-      {type === "register" && (
+      {type === "regist" && (
         <div>
           <label htmlFor="password-r">Повторить пароль</label>
           <input

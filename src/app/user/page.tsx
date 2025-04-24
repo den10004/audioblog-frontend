@@ -1,7 +1,6 @@
 import { AuthForm } from "@/components/AuthForm";
 import styles from "./../page.module.css";
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 
 export default async function User() {
   const cookieStore = cookies();
@@ -9,7 +8,7 @@ export default async function User() {
   const sessionValue = sessionCookie?.value;
 
   if (!sessionValue) {
-    redirect(`/login`);
+    return <div>Войдите</div>;
   }
 
   return (
@@ -18,7 +17,8 @@ export default async function User() {
       <div>{sessionValue}</div>
       <div>
         <span>Регистрация</span>
-        <AuthForm type="register" />
+
+        <AuthForm type="regist" />
       </div>
     </div>
   );

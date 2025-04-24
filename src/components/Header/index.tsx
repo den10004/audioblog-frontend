@@ -8,6 +8,8 @@ export default async function Header() {
     "session"
   )?.value;
 
+  console.log(sessionToken);
+
   return (
     <header>
       <ul>
