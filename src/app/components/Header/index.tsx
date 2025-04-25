@@ -8,14 +8,12 @@ export default async function Header() {
     "session"
   )?.value;
 
-  console.log(sessionToken);
-
   return (
     <header>
       <ul>
         <Link href={`/`}>Главная</Link>
         <Link href={`/blog`}>Блоги</Link>
-        {sessionToken ? <Logout /> : <Link href={`/login`}>Вход</Link>}
+        {sessionToken ? <Logout /> : <Link href={`auth/login`}>Вход</Link>}
       </ul>
     </header>
   );

@@ -1,10 +1,9 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import Link from "next/link";
 
-export default async function Home() {
+export default function Home() {
   return (
     <main>
-      <h1>Основной сайт</h1>
+      <h1>Главная</h1>
     </main>
   );
 }
