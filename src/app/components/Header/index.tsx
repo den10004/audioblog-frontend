@@ -1,19 +1,18 @@
-import Link from "next/link";
-import styles from "./page.module.css";
-import { cookies } from "next/headers";
-import Logout from "../Logout";
+"use client";
 
-export default async function Header() {
-  const sessionToken: string | undefined = (await cookies()).get(
-    "session"
-  )?.value;
+import Link from "next/link";
+import { useSession } from "next-auth/react";
+import { authenticated } from "@/app/variables";
+
+export default function Header() {
+  const { status } = useSession();
 
   return (
     <header>
       <ul>
         <Link href={`/`}>Главная</Link>
         <Link href={`/blog`}>Блоги</Link>
-        {sessionToken ? <Logout /> : <Link href={`auth/login`}>Вход</Link>}
+        {status != authenticated && <Link href={`/auth/login`}>Вход</Link>}
       </ul>
     </header>
   );

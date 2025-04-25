@@ -4,20 +4,28 @@ import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-export default function AccountPage() {
+declare module "next-auth" {
+  interface Session {
+    user: {
+      user: any;
+      email: string;
+      role: string;
+    };
+  }
+}
+
+export default function UserPage() {
   const router = useRouter();
-  const { data: session } = useSession() as {
-    data: {
-      user: {
-        user: any;
-        email: string;
-        role: string;
-      };
-    } | null;
-  };
+
+  const { data: session, status } = useSession({
+    required: true,
+    onUnauthenticated() {
+      window.location.href = "/auth/login";
+    },
+  });
 
   useEffect(() => {
-    if (!session) {
+    if (!status) {
       router.push("/auth/login");
     }
   }, [session, router]);
@@ -25,6 +33,8 @@ export default function AccountPage() {
   if (!session) {
     return null;
   }
+
+  console.log("user", status);
 
   const userEmail: string = session.user.user?.email;
   const userRole: string = session.user.user?.role;

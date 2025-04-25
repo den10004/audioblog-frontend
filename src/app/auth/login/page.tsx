@@ -23,22 +23,21 @@ export default function LoginPage() {
     if (result?.error) {
       setError(result.error);
     } else {
-      router.push("/account");
+      router.push("/user");
     }
   };
 
   return (
     <div>
       <div>
-        <h1>Login</h1>
+        <h1>Вход</h1>
         {error && <div>{error}</div>}
         <form onSubmit={handleSubmit}>
-          <div className="mb-4">
+          <div>
             <label htmlFor="email">Email</label>
             <input
               id="email"
               type="email"
-              className="w-full p-2 border rounded"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -49,7 +48,6 @@ export default function LoginPage() {
             <input
               id="password"
               type="password"
-              className="w-full p-2 border rounded"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required

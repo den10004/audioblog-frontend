@@ -24,14 +24,15 @@ export const authConfig: NextAuthOptions = {
               }),
             }
           );
-          console.log("API response status:", response);
+
+          if (!response.ok) {
+            const errorData = await response.json();
+            console.error("API Error:", errorData);
+            return null;
+          }
 
           const user = await response.json();
-
-          if (response.ok && user) {
-            return user;
-          }
-          return null;
+          return user || null;
         } catch (error) {
           console.error("Authorization error:", error);
           return null;
@@ -39,6 +40,28 @@ export const authConfig: NextAuthOptions = {
       },
     }),
   ],
+
+  jwt: {
+    maxAge: 30 * 24 * 60 * 60,
+  },
+
+  session: {
+    strategy: "jwt",
+    maxAge: 30 * 24 * 60 * 60,
+  },
+
+  cookies: {
+    sessionToken: {
+      name: `next-auth.session-token`,
+      options: {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        secure: process.env.NODE_ENV === "production",
+        maxAge: 30 * 24 * 60 * 60,
+      },
+    },
+  },
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
