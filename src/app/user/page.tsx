@@ -1,6 +1,6 @@
 "use client";
 
-import { useSession, signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
@@ -34,8 +34,6 @@ export default function UserPage() {
     return null;
   }
 
-  console.log("user", status);
-
   const userEmail: string = session.user.user?.email;
   const userRole: string = session.user.user?.role;
   return (
@@ -43,7 +41,6 @@ export default function UserPage() {
       <div>
         <h1>Пользователь {userEmail}</h1>
         <p>Роль {userRole}</p>
-        <button onClick={() => signOut({ callbackUrl: "/" })}>Выход</button>
       </div>
     </div>
   );
