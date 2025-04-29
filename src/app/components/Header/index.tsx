@@ -10,13 +10,11 @@ export default function Header() {
   const [user, setUser] = useState("");
 
   useEffect(() => {
-    if (status === authenticated) {
+    if (status === authenticated && session?.user) {
       const userEmail = session.user.user.email;
       setUser(userEmail);
     }
   }, [session]);
-
-  console.log(user);
 
   return (
     <header>

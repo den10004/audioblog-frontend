@@ -2,7 +2,8 @@
 
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+//import MyEditor from "./../components/MyEditor";
 
 declare module "next-auth" {
   interface Session {
@@ -16,6 +17,8 @@ declare module "next-auth" {
 
 export default function UserPage() {
   const router = useRouter();
+
+  const [images, setImages] = useState([]);
 
   const { data: session, status } = useSession({
     required: true,
@@ -41,6 +44,36 @@ export default function UserPage() {
       <div>
         <h1>Пользователь {userEmail}</h1>
         <p>Роль {userRole}</p>
+
+        {/*
+        <h3>Создать блог</h3>
+
+        <form>
+          <div>
+            <label htmlFor="title">Заголовок</label>
+            <input
+              type="text"
+              id="title"
+              placeholder="Введите заголовок блога"
+              required
+            />
+          </div>
+
+          <div>
+            <label htmlFor="content">Содержание</label>
+          </div>
+        </form>
+*/}
+        <div>
+          <label>Изображения (максимум 5)</label>
+          <div className="flex items-center space-x-4">
+            <button type="button">Добавить изображения</button>
+            <span className="text-sm text-gray-500">
+              {images.length} / 5 загружено
+            </span>
+          </div>
+          <input type="file" className="hidden" accept="image/*" multiple />
+        </div>
       </div>
     </div>
   );
