@@ -4,14 +4,15 @@ import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import { authenticated } from "@/app/variables";
 import { useEffect, useState } from "react";
+import UserProfile from "../UserProfile";
 
 export default function Header() {
   const { data: session, status } = useSession();
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState({});
 
   useEffect(() => {
     if (status === authenticated && session?.user) {
-      const userEmail = session.user.user.email;
+      const userEmail = session;
       setUser(userEmail);
     }
   }, [session]);
@@ -24,7 +25,11 @@ export default function Header() {
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         {status != authenticated && <Link href={`/auth/login`}>Вход</Link>}
         &nbsp;&nbsp;
-        {status === authenticated && <Link href={`/user`}>{user}</Link>}
+        {status === authenticated && (
+          <Link href={`/user`}>
+            <UserProfile />
+          </Link>
+        )}
         {status === authenticated && (
           <button onClick={() => signOut({ callbackUrl: "/" })}>Выход</button>
         )}

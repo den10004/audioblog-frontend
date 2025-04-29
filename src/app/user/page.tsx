@@ -3,22 +3,14 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-//import MyEditor from "./../components/MyEditor";
-
-declare module "next-auth" {
-  interface Session {
-    user: {
-      user: any;
-      email: string;
-      role: string;
-    };
-  }
-}
+import Editor from "../components/MyEditor";
+import UserProfile from "../components/UserProfile";
 
 export default function UserPage() {
   const router = useRouter();
 
   const [images, setImages] = useState([]);
+  const [content, setContent] = useState(null);
 
   const { data: session, status } = useSession({
     required: true,
@@ -37,15 +29,18 @@ export default function UserPage() {
     return null;
   }
 
-  const userEmail: string = session.user.user?.email;
-  const userRole: string = session.user.user?.role;
+  const handleSave = () => {
+    console.log("handleSave");
+  };
+
   return (
     <div>
       <div>
-        <h1>Пользователь {userEmail}</h1>
-        <p>Роль {userRole}</p>
+        <h1>
+          Пользователь <UserProfile />
+        </h1>
+        <p>Роль </p>
 
-        {/*
         <h3>Создать блог</h3>
 
         <form>
@@ -58,12 +53,12 @@ export default function UserPage() {
               required
             />
           </div>
-
           <div>
             <label htmlFor="content">Содержание</label>
           </div>
+          <button onClick={handleSave}>Сохранить</button>
         </form>
-*/}
+
         <div>
           <label>Изображения (максимум 5)</label>
           <div className="flex items-center space-x-4">

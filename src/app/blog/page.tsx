@@ -19,11 +19,13 @@ export async function generateMetadata() {
 */
 interface Blog {
   id: number;
+  description: string;
   title: string;
+  content: string;
 }
 
 export default async function Blog() {
-  const blogs = await fetch(`${process.env.NEXT_PUBLIC_URL}blog`, {
+  const blogs = await fetch(`${process.env.NEXT_PUBLIC_URL}articles`, {
     next: { revalidate: 3600 },
   }).then((res) => res.json());
 
@@ -34,7 +36,9 @@ export default async function Blog() {
         {blogs.map((i: Blog) => (
           <Link key={i.id} href={`/blog/${i.id}`}>
             <div>{i.id}</div>
+            <div>{i.description}</div>
             <div>{i.title}</div>
+            <div>{i.content}</div>
           </Link>
         ))}
       </ul>
